@@ -4,16 +4,13 @@ type Todo = {
   done: boolean;
 };
 
-// mock get request
-export const getTasks = () => {
-  return new Promise<Todo[]>((res) => {
-    setTimeout(() => {
-      res([
-        { id: "1", text: "task 1", done: false },
-        { id: "2", text: "task 2", done: false },
-      ]);
-    }, 1000);
-  });
+const BASE_URL = "http://localhost:3000";
+
+// signal can cancel request
+export const getTasks = ({ signal }: { signal: AbortSignal }) => {
+  return fetch(`${BASE_URL}/tasks`, { signal }).then(
+    (res) => res.json() as Promise<Todo[]>
+  );
 };
 
 export default getTasks;
