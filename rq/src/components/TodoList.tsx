@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useTodoList } from "../hooks/useTodoList";
+import { useCreateTodo } from "../hooks/useCreateTodo";
 
 const TodoList = () => {
   const [enabled, setEnabled] = useState(false);
   const { data, error, isLoading, isPlaceholderData, cursor } =
     useTodoList(enabled);
+
+  const { handleCreate, isPending } = useCreateTodo();
 
   //status === "pending" && fetchStatus === "fetching"
   if (isLoading) {
@@ -18,6 +21,21 @@ const TodoList = () => {
   return (
     <div className="p-5 mx-auto max-w-[1200px] mt-10">
       <h1 className="text-3xl font-bold mb-5">Todo List</h1>
+
+      <form className="flex gap-2 mb-5" onSubmit={handleCreate}>
+        <input
+          className="rounded p-2 border border-teal-500"
+          type="text"
+          name="text"
+        />
+        <button
+          disabled={isPending}
+          className="rounded p-2 border border-teal-500 disabled:opacty-50"
+        >
+          Создать
+        </button>
+      </form>
+
       <button onClick={() => setEnabled((e) => !e)}>Toggle enabled</button>
       <div
         className={

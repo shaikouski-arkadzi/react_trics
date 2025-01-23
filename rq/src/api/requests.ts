@@ -5,6 +5,7 @@ type Todo = {
   id: string;
   text: string;
   done: boolean;
+  userId: string;
 };
 
 type PaginatedResult<T> = {
@@ -52,6 +53,26 @@ export const todoListApi = {
       getNextPageParam: (result) => result.next,
       //объедить странницы для вывода
       select: (result) => result.pages.flatMap((page) => page.data),
+    });
+  },
+
+  createTodo: (data: Todo) => {
+    return jsonApiInstance<Todo>("/tasks", {
+      method: "POST",
+      json: data,
+    });
+  },
+
+  updateTodo: (id: string, data: Partial<Todo>) => {
+    return jsonApiInstance<Todo>(`/tasks/${id}`, {
+      method: "PATCH",
+      json: data,
+    });
+  },
+
+  deleteTodo: (id: string) => {
+    return jsonApiInstance<Todo>(`/tasks/${id}`, {
+      method: "DELETE",
     });
   },
 };
