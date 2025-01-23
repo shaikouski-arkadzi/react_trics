@@ -1,17 +1,11 @@
 import { useState } from "react";
-import {
-  keepPreviousData,
-  useInfiniteQuery,
-  useQuery,
-} from "@tanstack/react-query";
-import getTasks from "../api/getTasks";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersection } from "../hooks/useIntersection";
+import { todoListApi } from "../api/getTasks";
 
 const TodoList = () => {
   const [enabled, setEnabled] = useState(false);
 
-  //queryKey - массив строк для различия запросов друг от друга
-  //queryFn - любая асинхронная функция, которая возвращает промис
   //status - наличие данных в кэше. если нет данных-pending. success. error
   //fetchStatus - состояние загрузки. fetching - получаем. paused. idle - ожидание
   //isFetching - на перезапрос
@@ -29,16 +23,8 @@ const TodoList = () => {
     hasNextPage, // флаг есть ли следующая страница
     isFetchingNextPage, // флаг срабатывает когда подгружаем следующую страницу
   } = useInfiniteQuery({
-    queryKey: ["todos"],
-    queryFn: (meta) => getTasks({ page: meta.pageParam }, meta), // meta будет включать сигнал
-    // placeholderData - данные которые показываются пока ничего нету
-    // placeholderData: keepPreviousData, // показать предыдущие данные пока нет никаких данных
-    // initialData - наполнение кэша первоначальными значениями(например из localstorage)
-    // enabled позволяю включать/выключать запросы
+    ...todoListApi.getTasksListInfinityQueryOptions(),
     enabled: enabled,
-    initialPageParam: 1,
-    getNextPageParam: (result) => result.next,
-    select: (result) => result.pages.flatMap((page) => page.data),
   });
 
   const cursorRef = useIntersection(() => {
