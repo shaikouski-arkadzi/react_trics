@@ -1,36 +1,6 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "text": "Complete project report",
-      "done": false,
-      "userId": "1"
-    },
-    {
-      "id": "2",
-      "text": "Prepare for presentation",
-      "done": true,
-      "userId": "1"
-    },
-    {
-      "id": "3",
-      "text": "Schedule meeting with team",
-      "done": false,
-      "userId": "1"
-    },
-    {
-      "id": "4",
-      "text": "Review budget proposal",
-      "done": true,
-      "userId": "1"
-    },
-    {
-      "id": "5",
-      "text": "Organize files",
-      "done": false,
-      "userId": "1"
-    },
-    {
       "id": "6",
       "text": "Respond to client emails",
       "done": true,
