@@ -1,14 +1,14 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import { jsonApiInstance } from "./apiInstance";
 
-type Todo = {
+export type Todo = {
   id: string;
   text: string;
   done: boolean;
   userId: string;
 };
 
-type PaginatedResult<T> = {
+export type PaginatedResult<T> = {
   data: T[];
   first: number;
   items: number;
@@ -63,8 +63,9 @@ export const todoListApi = {
     });
   },
 
-  updateTodo: (id: string, data: Partial<Todo>) => {
-    return jsonApiInstance<Todo>(`/tasks/${id}`, {
+  // все поля кроме id необязательные
+  updateTodo: (data: Partial<Todo> & { id: string }) => {
+    return jsonApiInstance<Todo>(`/tasks/${data.id}`, {
       method: "PATCH",
       json: data,
     });
