@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PaginatedResult, Todo, todoListApi } from "../api/requests";
+import { todoListApi } from "../api/todoListApi";
 
 export function useToggleTodo() {
   const queryClient = useQueryClient();

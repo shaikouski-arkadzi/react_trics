@@ -1,5 +1,52 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "login": "arkadiy",
+      "password": "12345"
+    },
+    {
+      "id": "2",
+      "login": "bob",
+      "password": "password"
+    },
+    {
+      "id": "3",
+      "login": "carol",
+      "password": "mypassword123"
+    }
+  ],
   "tasks": [
+    {
+      "id": "1",
+      "text": "Complete project report",
+      "done": false,
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "text": "Prepare for presentation",
+      "done": true,
+      "userId": "1"
+    },
+    {
+      "id": "3",
+      "text": "Schedule meeting with team",
+      "done": false,
+      "userId": "1"
+    },
+    {
+      "id": "4",
+      "text": "Review budget proposal",
+      "done": true,
+      "userId": "1"
+    },
+    {
+      "id": "5",
+      "text": "Organize files",
+      "done": false,
+      "userId": "1"
+    },
     {
       "id": "6",
       "text": "Respond to client emails",
@@ -544,18 +591,6 @@
       "id": "AghTjMwJoWlw_PZbPIVgw",
       "done": false,
       "text": "asdfasdf. Owner: alice",
-      "userId": "1"
-    },
-    {
-      "id": "a5bd4e26-5c91-4f98-aefb-1a620121ac68",
-      "done": false,
-      "text": "text",
-      "userId": "1"
-    },
-    {
-      "id": "6cb69cd3-538a-4c55-95f0-3ea868bf4876",
-      "done": false,
-      "text": "df",
       "userId": "1"
     }
   ]
