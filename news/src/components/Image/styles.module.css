@@ -1,0 +1,6 @@
+.image {
+  aspect-ratio: 1.78;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: gray;
+}
