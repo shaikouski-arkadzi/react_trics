@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
-import { getNews } from "../../api/apiNews";
 import NewsList from "../../components/NewsList/NewsList";
 import styles from "./styles.module.css";
+import { useNews } from "../../hooks/useNews";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Main = () => {
-  const [news, setNews] = useState([]);
+  const { news, currentPage, setCurrentPage } = useNews();
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await getNews();
-        setNews(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchNews();
-  }, []);
+  const handleClick = (value) => {
+    setCurrentPage((page) =>
+      page === 1 && value === -1 ? page : page + value
+    );
+  };
 
   return (
     <main className={styles.main}>
+      <Pagination currentPage={currentPage} onClick={handleClick} />
       <NewsList news={news} />
     </main>
   );
