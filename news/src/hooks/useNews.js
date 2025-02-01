@@ -11,6 +11,8 @@ const newsReducer = (state, action) => {
       return { ...state, news: action.payload };
     case "SET_PAGE":
       return { ...state, currentPage: action.payload };
+    case "SET_KEYWORDS":
+      return { ...state, keywords: action.payload };
     default:
       return state;
   }
@@ -23,6 +25,7 @@ export const useNews = () => {
     news: [],
     currentPage: 1,
     pageSize: 10,
+    keywords: "",
   });
 
   useEffect(() => {
@@ -48,6 +51,7 @@ export const useNews = () => {
           pageSize: state.pageSize,
           category:
             state.selectedCategory === "all" ? null : state.selectedCategory,
+          keywords: state.keywords,
           signal: controller.signal,
         });
         dispatch({ type: "SET_NEWS", payload: response });
@@ -60,7 +64,12 @@ export const useNews = () => {
 
     fetchNews();
     return () => controller.abort();
-  }, [state.selectedCategory, state.currentPage, state.pageSize]);
+  }, [
+    state.selectedCategory,
+    state.currentPage,
+    state.pageSize,
+    state.keywords,
+  ]);
 
   const setSelectedCategory = useCallback((category) => {
     dispatch({ type: "SET_SELECTED_CATEGORY", payload: category });
@@ -70,6 +79,10 @@ export const useNews = () => {
     dispatch({ type: "SET_PAGE", payload: page });
   }, []);
 
+  const setKeywords = useCallback((keywords) => {
+    dispatch({ type: "SET_KEYWORDS", payload: keywords });
+  }, []);
+
   return {
     categories: state.categories,
     selectedCategory: state.selectedCategory,
@@ -77,5 +90,7 @@ export const useNews = () => {
     news: state.news,
     currentPage: state.currentPage,
     setCurrentPage,
+    keywords: state.keywords,
+    setKeywords,
   };
 };
