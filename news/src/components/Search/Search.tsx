@@ -1,7 +1,13 @@
+import React, { Dispatch, SetStateAction } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import styles from "./styles.module.css";
 
-const Search = ({ keywords, setKeywords }) => {
+interface SearchProps {
+  keywords: string;
+  setKeywords: Dispatch<SetStateAction<string>>;
+}
+
+const Search: React.FC<SearchProps> = ({ keywords, setKeywords }) => {
   const [inputValue, setInputValue] = useDebounce(keywords, setKeywords, 300);
 
   return (

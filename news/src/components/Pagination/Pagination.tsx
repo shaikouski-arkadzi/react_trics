@@ -1,6 +1,13 @@
+import React from "react";
 import styles from "./styles.module.css";
 
-const Pagination = ({ currentPage, onClick }) => {
+const Pagination = ({
+  currentPage,
+  onClick,
+}: {
+  currentPage: number;
+  onClick: (value: number) => void;
+}) => {
   return (
     <div className={styles.pagination}>
       <button

@@ -1,8 +1,10 @@
+import React from "react";
 import { formatPastTime } from "../../helpers/formatPastTime";
 import Image from "../Image/Image";
 import styles from "./styles.module.css";
+import { INewsItem } from "../../types/types";
 
-const NewsItem = ({ item, big }) => {
+const NewsItem = ({ item, big }: { item: INewsItem; big: boolean }) => {
   return (
     <li
       className={styles.item}

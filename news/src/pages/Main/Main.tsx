@@ -1,10 +1,10 @@
+import React from "react";
 import NewsList from "../../components/NewsList/NewsList";
-import styles from "./styles.module.css";
 import { useNews } from "../../hooks/useNews";
 import Pagination from "../../components/Pagination/Pagination";
 import Categories from "../../components/Categories/Categories";
 import Search from "../../components/Search/Search";
-import { useDebounce } from "../../hooks/useDebounce";
+import styles from "./styles.module.css";
 
 const Main = () => {
   const {
@@ -18,8 +18,8 @@ const Main = () => {
     setKeywords,
   } = useNews();
 
-  const handleClick = (value) => {
-    setCurrentPage((page) => Math.max(1, page + value));
+  const handleClick = (value: number) => {
+    setCurrentPage((page: number) => Math.max(1, page + value));
   };
 
   return (

@@ -1,7 +1,8 @@
-import { useEffect, useReducer, useCallback } from "react";
+import { useEffect, useReducer, useCallback, SetStateAction } from "react";
 import { getCategories, getNews } from "../api/apiNews";
+import { IAction, ICategory, INewsState, INewsItem } from "../types/types";
 
-const newsReducer = (state, action) => {
+const newsReducer = (state: INewsState, action: IAction): INewsState => {
   switch (action.type) {
     case "SET_CATEGORIES":
       return { ...state, categories: action.payload };
@@ -22,16 +23,16 @@ export const useNews = () => {
   const [state, dispatch] = useReducer(newsReducer, {
     categories: [],
     selectedCategory: "all",
-    news: [],
+    news: null,
     currentPage: 1,
     pageSize: 10,
     keywords: "",
-  });
+  } as INewsState);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categories = await getCategories();
+        const categories: ICategory[] = await getCategories();
         dispatch({ type: "SET_CATEGORIES", payload: categories });
       } catch (error) {
         console.error(error);
@@ -43,19 +44,21 @@ export const useNews = () => {
 
   useEffect(() => {
     const controller = new AbortController();
+    let isMounted = true;
 
     const fetchNews = async () => {
       try {
-        const response = await getNews({
-          currentPage: state.currentPage,
-          pageSize: state.pageSize,
+        const response: INewsItem[] = await getNews({
+          page_number: state.currentPage,
+          page_size: state.pageSize,
           category:
             state.selectedCategory === "all" ? null : state.selectedCategory,
           keywords: state.keywords,
-          signal: controller.signal,
         });
-        dispatch({ type: "SET_NEWS", payload: response });
-      } catch (error) {
+        if (isMounted) {
+          dispatch({ type: "SET_NEWS", payload: response });
+        }
+      } catch (error: any) {
         if (error.name !== "AbortError") {
           console.error(error);
         }
@@ -63,7 +66,10 @@ export const useNews = () => {
     };
 
     fetchNews();
-    return () => controller.abort();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, [
     state.selectedCategory,
     state.currentPage,
@@ -71,17 +77,24 @@ export const useNews = () => {
     state.keywords,
   ]);
 
-  const setSelectedCategory = useCallback((category) => {
+  const setSelectedCategory = useCallback((category: string) => {
     dispatch({ type: "SET_SELECTED_CATEGORY", payload: category });
   }, []);
 
-  const setCurrentPage = useCallback((page) => {
+  const setCurrentPage = useCallback((page: SetStateAction<number>) => {
     dispatch({ type: "SET_PAGE", payload: page });
   }, []);
 
-  const setKeywords = useCallback((keywords) => {
-    dispatch({ type: "SET_KEYWORDS", payload: keywords });
-  }, []);
+  const setKeywords = useCallback(
+    (keywords: SetStateAction<string>) => {
+      dispatch({
+        type: "SET_KEYWORDS",
+        payload:
+          typeof keywords === "function" ? keywords(state.keywords) : keywords,
+      });
+    },
+    [state.keywords]
+  );
 
   return {
     categories: state.categories,
