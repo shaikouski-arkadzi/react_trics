@@ -18,8 +18,6 @@ const Main = () => {
     setKeywords,
   } = useNews();
 
-  const debouncedKeywords = useDebounce(keywords, setKeywords, 1500);
-
   const handleClick = (value) => {
     setCurrentPage((page) => Math.max(1, page + value));
   };
@@ -31,7 +29,7 @@ const Main = () => {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <Search keywords={debouncedKeywords} setKeywords={setKeywords} />
+      <Search keywords={keywords} setKeywords={setKeywords} />
       <Pagination currentPage={currentPage} onClick={handleClick} />
       <NewsList news={news} />
     </main>

@@ -6,7 +6,10 @@ const NewsItem = ({ item, big }) => {
   return (
     <li
       className={styles.item}
-      style={{ flexDirection: big ? "column" : "row" }}
+      style={{
+        gridColumn: big ? "1 / -1" : "",
+        flexDirection: big ? "column" : "row",
+      }}
     >
       <Image style={{ width: big ? "100%" : "64px" }} image={item.image} />
       <div className={styles.info}>
