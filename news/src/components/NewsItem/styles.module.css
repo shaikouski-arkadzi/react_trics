@@ -7,6 +7,10 @@
   border-radius: 10px;
 }
 
+.item.dark {
+  background-color: #2b1249d5;
+}
+
 .info {
   display: flex;
   flex-direction: column;

@@ -1,11 +1,25 @@
 .header {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
   width: 100%;
   padding: 12px 24px;
   background: white;
   border-bottom: 1px solid #f2f4f5;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dark {
+  background-color: #23272f;
+  border-bottom: 1px solid rgb(60, 60, 60);
+}
+
+.light {
+  background-color: white;
 }
 
 .title {
@@ -14,4 +28,9 @@
 
 .date {
   font-size: 16px;
+}
+
+.themeSwitch {
+  height: 30px;
+  cursor: pointer;
 }
