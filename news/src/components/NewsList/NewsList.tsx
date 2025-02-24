@@ -2,8 +2,12 @@ import React from "react";
 import NewsItem from "../NewsItem/NewsItem";
 import styles from "./styles.module.css";
 import { INewsItem } from "../../types/types";
+import { useGetNewsQuery } from "../../store/services/newsApi";
+import { useAppSelector } from "../../store/store";
 
-const NewsList = ({ news }: { news: INewsItem[] | null }) => {
+const NewsList = () => {
+  useGetNewsQuery();
+  const { news } = useAppSelector((state) => state.news);
   if (!news) {
     return null;
   }

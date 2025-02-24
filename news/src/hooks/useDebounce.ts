@@ -1,19 +1,21 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
 
-export const useDebounce = (
-  initialValue: string,
-  callback: (value: string) => void,
+export const useDebounce = <T extends string>(
+  initialValue: T,
+  action: (value: T) => any,
   delay: number
-): [string, Dispatch<SetStateAction<string>>] => {
-  const [value, setValue] = useState<string>(initialValue);
+): [T, Dispatch<SetStateAction<T>>] => {
+  const [value, setValue] = useState<T>(initialValue);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      callback(value);
+      dispatch(action(value));
     }, delay);
 
     return () => clearTimeout(handler);
-  }, [value, callback, delay]);
+  }, [value, action, delay, dispatch]);
 
   return [value, setValue];
 };

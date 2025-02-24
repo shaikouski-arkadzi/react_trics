@@ -1,8 +1,3 @@
-export interface ICategory {
-  id: string;
-  name: string;
-}
-
 export interface INewsItem {
   id: string;
   title: string;
@@ -19,7 +14,7 @@ export interface INewsResponse {
 }
 
 export interface INewsState {
-  categories: ICategory[];
+  categories: string[];
   selectedCategory: string;
   news: INewsItem[] | null;
   currentPage: number;
@@ -30,4 +25,25 @@ export interface INewsState {
 export interface IAction {
   type: string;
   payload?: any;
+}
+
+export interface IFilters {
+  page_number: number;
+  page_size: number;
+  category: string | null;
+  keywords: string;
+}
+
+export type ParamsType = Partial<IFilters>;
+
+export interface NewsApiResponse {
+  news: INewsItem[];
+  page: number;
+  status: string;
+}
+
+export interface CategoriesApiResponse {
+  categories: string[];
+  description: string;
+  status: string;
 }

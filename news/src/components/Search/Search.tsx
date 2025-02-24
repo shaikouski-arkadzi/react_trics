@@ -1,14 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useTheme } from "../../context/ThemeProvider";
 import styles from "./styles.module.css";
+import { useAppSelector } from "../../store/store";
+import { setKeywords } from "../../store/slice";
 
-interface SearchProps {
-  keywords: string;
-  setKeywords: Dispatch<SetStateAction<string>>;
-}
-
-const Search: React.FC<SearchProps> = ({ keywords, setKeywords }) => {
+const Search: React.FC = () => {
+  const { keywords } = useAppSelector((state) => state.news);
   const [inputValue, setInputValue] = useDebounce(keywords, setKeywords, 300);
   const { isDark } = useTheme();
 

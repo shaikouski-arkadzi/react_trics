@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useCallback, SetStateAction } from "react";
 import { getCategories, getNews } from "../api/apiNews";
-import { IAction, ICategory, INewsState, INewsItem } from "../types/types";
+import { IAction, INewsState, INewsItem } from "../types/types";
 
 const newsReducer = (state: INewsState, action: IAction): INewsState => {
   switch (action.type) {
@@ -32,7 +32,7 @@ export const useNews = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categories: ICategory[] = await getCategories();
+        const categories: string[] = await getCategories();
         dispatch({ type: "SET_CATEGORIES", payload: categories });
       } catch (error) {
         console.error(error);

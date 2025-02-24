@@ -1,15 +1,20 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { useTheme } from "../../context/ThemeProvider";
+import { useAppSelector } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../store/slice";
 
-const Pagination = ({
-  currentPage,
-  onClick,
-}: {
-  currentPage: number;
-  onClick: (value: number) => void;
-}) => {
+const Pagination = () => {
   const { isDark } = useTheme();
+
+  const { currentPage } = useAppSelector((state) => state.news);
+
+  const dispatch = useDispatch();
+
+  const handleClick = (value: number) => {
+    dispatch(setPage(Math.max(1, currentPage + value)));
+  };
 
   return (
     <div
@@ -17,12 +22,12 @@ const Pagination = ({
     >
       <button
         disabled={currentPage === 1}
-        onClick={() => onClick(-1)}
+        onClick={() => handleClick(-1)}
         className={styles.arrow}
       >
         {"<"}
       </button>
-      <button onClick={() => onClick(1)} className={styles.arrow}>
+      <button onClick={() => handleClick(1)} className={styles.arrow}>
         {">"}
       </button>
     </div>
