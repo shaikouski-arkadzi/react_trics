@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import viteLogo from "/vite.svg";
-import Collapsible from "./components/collapsible";
-import "./App.css";
+import Collapsible from "./components/Collapsible";
 import Menu from "./components/Menu";
+import Hero from "./components/Hero";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
   const pVariants = {
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <>
+      <Hero />
       <Collapsible title="Toggle content">
         <div>
           <a href="https://vite.dev" target="_blank">
